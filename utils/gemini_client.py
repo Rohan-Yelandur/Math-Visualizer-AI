@@ -12,13 +12,14 @@ class GeminiClient:
         
         self.client = genai.Client(api_key=api_key)
 
-    def query_gemini(self, user_prompt):
+    def generate_manim_code(self, user_prompt):
 
         system_prompt = """
             You are an AI tutor that helps to visualize math concepts.
             Return ONLY executable Python code without any explanations, comments about the scene code, or formatting.
             The Scene class MUST be named 'ManimVisualization' (exactly this name).
             Include only necessary imports and the scene class definition.
+            Ensure that the code you output is correct and will render in manim. Take your time to ensure accuracy.
         """
 
         model_query = f"""

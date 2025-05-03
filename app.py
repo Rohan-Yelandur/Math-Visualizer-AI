@@ -44,7 +44,7 @@ def main():
             return
             
         with st.spinner("Generating Manim code with Gemini..."):
-            manim_code = st.session_state.gemini_client.query_gemini(prompt)
+            manim_code = st.session_state.gemini_client.generate_manim_code(prompt)
         
         if manim_code.startswith("Error"):
             st.error(manim_code)
@@ -62,20 +62,31 @@ def main():
             "video_path": video_path
         })
         
-        st.success("Visualization generated successfully!")
-        with open(video_path, "rb") as file:
-            video_bytes = file.read()
-            st.video(video_bytes)
+        # Only try to display the video if a path was returned
+        if video_path:
+            st.success("Visualization generated successfully!")
+            with open(video_path, "rb") as file:
+                video_bytes = file.read()
+                st.video(video_bytes)
+        else:
+            st.warning("No video was generated. You can try different parameters or check if Manim is installed correctly.")
     
+    # Show history with error handling
     if st.session_state.history:
         st.write("---")
         st.subheader("Previous Visualizations")
         for i, item in enumerate(reversed(st.session_state.history)):
             with st.expander(f"{i+1}. {item['prompt'][:50]}..."):
-                if os.path.exists(item['video_path']):
+                # Only try to show video if path exists
+                if item['video_path'] and os.path.exists(item['video_path']):
                     with open(item['video_path'], "rb") as file:
                         video_bytes = file.read()
                         st.video(video_bytes)
+                elif item['video_path'] is None:
+                    st.info("No video was generated for this visualization.")
+                else:
+                    st.info("Video file no longer exists.")
+                
                 st.code(item['code'], language="python")
 
 if __name__ == "__main__":
