@@ -1,6 +1,0 @@
-.env
-.venv
-
-notesToSelf.txt
-__pycache__
-utils/__pycache__
