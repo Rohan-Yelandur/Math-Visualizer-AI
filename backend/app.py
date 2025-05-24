@@ -11,7 +11,7 @@ from prompts import SYSTEM_PROMPT
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app, origins=["https://math-visualizer-ai.vercel.app"])
+CORS(app)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MEDIA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media')
 os.makedirs(MEDIA_DIR, exist_ok=True)
