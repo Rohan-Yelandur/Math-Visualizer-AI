@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   const [prompt, setPrompt] = useState("");
-  const [response, setResponse] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +19,11 @@ function App() {
       if (!res.ok) {
         throw new Error("Failed to get response");
       }
-
       const data = await res.json();
-      setResponse(data);
+
+      if (data.video_url) {
+        setVideoUrl(`http://localhost:4000${data.video_url}`);
+      }
     } catch (error) {
       console.error("Error querying API: ", error);
     }
@@ -41,8 +43,19 @@ function App() {
       </form>
 
       <div>
-        <h2>Reponse: </h2>
-        <div>{response}</div>
+        <h2>Generated Video:</h2>
+        {videoUrl ? (
+          <video 
+            controls 
+            width="100%"
+            src={videoUrl} 
+            type="video/mp4"
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <p>No video available yet</p>
+        )}
       </div>
     </div>
   );
