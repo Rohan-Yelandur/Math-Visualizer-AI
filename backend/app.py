@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import uuid
+import shutil
 from prompts import SYSTEM_PROMPT
 
 load_dotenv()
@@ -14,6 +15,21 @@ CORS(app)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MEDIA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media')
 os.makedirs(MEDIA_DIR, exist_ok=True)
+
+def clear_media_directory():
+    """Delete all previously rendered videos from the media directory"""
+    try:
+        for item in os.listdir(MEDIA_DIR):
+            item_path = os.path.join(MEDIA_DIR, item)
+            # Only remove directories (each job has its own directory)
+            if os.path.isdir(item_path):
+                shutil.rmtree(item_path)
+            # Also remove Python files that were generated
+            elif item.endswith('.py'):
+                os.remove(item_path)
+        print("Cleared all previous videos")
+    except Exception as e:
+        print(f"Error clearing media directory: {e}")
 
 def extract_manim_code(response_text):
     python_blocks = re.findall(r'```python(.*?)```', response_text, re.DOTALL)
@@ -68,6 +84,8 @@ def home():
 
 @app.route("/query", methods=["POST"])
 def query():
+    clear_media_directory()
+
     data = request.json
     if not data:
         return jsonify({"error": "No data provided"}), 400
