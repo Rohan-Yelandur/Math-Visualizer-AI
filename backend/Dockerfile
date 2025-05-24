@@ -1,7 +1,8 @@
 FROM python:3.10-slim
 
-# Install system dependencies
+# Install system dependencies including build-essential for compilers
 RUN apt-get update && apt-get install -y \
+    build-essential \
     ffmpeg \
     texlive-latex-base \
     texlive-fonts-recommended \
