@@ -22,4 +22,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run the application
-CMD gunicorn app:app -b 0.0.0.0:$PORT
+CMD gunicorn app:app -b 0.0.0.0:$PORT -t 300

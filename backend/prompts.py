@@ -11,4 +11,6 @@ SYSTEM_PROMPT = '''
     The Scene class MUST be named 'ManimVisualization' (exactly this name).
     Include all necessary imports. Ensure any functions or variables used are defined.
     Keep the animation code simple and do not used complex nested functions.
+
+    Keep overall script length short. The video should not exceed 30 seconds.
 '''
