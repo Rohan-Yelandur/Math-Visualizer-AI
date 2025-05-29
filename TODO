@@ -1,3 +1,8 @@
 Show generated videos on the frontend.
 
 Figure out way to manage how videos are deleted on the backend.
+
+
+Fine-tune a model for better Manim code gen.
+Look into Monster API and Hugging Face for inference.
+Eleven labs for audio
