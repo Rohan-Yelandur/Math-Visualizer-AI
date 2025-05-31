@@ -21,7 +21,10 @@ function App() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({prompt})
+        body: JSON.stringify({
+          prompt,
+          generate_audio: false
+        })
       });
       
       if (!res.ok) {

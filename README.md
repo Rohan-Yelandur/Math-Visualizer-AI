@@ -1,5 +1,9 @@
 # Math Visualizaion AI
-An AI that truly teaches you math concepts. You are walked through the steps for solving a problem while being drawn the solutions.
+Check it out here: https://math-visualizer-ai.vercel.app/
+An AI that truly teaches you math concepts. You are walked through the steps for solving a problem while seeing and hearing the solutions.
+
+Frontend deployed on vercel. Backend deployed on Render.
+
 
 ## Local Setup
 
